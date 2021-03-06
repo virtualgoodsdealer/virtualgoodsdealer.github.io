@@ -1,12 +1,14 @@
 ---
 layout: page
-title: about
+title: About
 permalink: /about/
 ---
 
-This is an example site for [jekyll-theme-image-grid](https://github.com/jirrian/jekyll-theme-image-grid) by [jirrian](https://github.com/jirrian). Image grid is a simple responsive image grid theme for displaying image-based content with various built-in customization options.
+Virtualgoodsdealer is a collaborative virtual space and e-commerce portal. Working in art, fashion, technology, and craft, we provide an infrastructure to facilitate creative trades and develop products.
 
-It is available as a ruby gem `jekyll-theme-image-grid` and is Github Pages remote theme compatible. See the [theme repository](https://github.com/jirrian/jekyll-theme-image-grid) for more information.
+[pages.virtualgoodsdealer.com](https://pages.virtualgoodsdealer.com/) focuses on publishing non-physical art and showcasing creators.   
+[products.virtualgoodsdealer.com](https://products.virtualgoodsdealer.com/) is an online store stocked with virtualgoodsdealer originals and works by our creator partners.
 
-- [Example site repository](https://github.com/jirrian/image-grid-example)
-- [In-depth installation tutorial](https://pages.virtualgoodsdealer.com/articles/2021/01/21/simple-website-tutorial-part-three/)
+Virtualgoodsdealer is by [ada.wrong](/creatordirectory/adawrong), [cindie xin](/creatordirectory/cindiexin), and [saqmemes](/creatordirectory/saqmemes).
+
+Contact us at [virtualgoodsofficial@gmail.com](mailto:virtualgoodsofficial@gmail.com).

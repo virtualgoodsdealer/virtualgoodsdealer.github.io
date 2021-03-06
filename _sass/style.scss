@@ -15,6 +15,10 @@ body {
 	background: #bdbdbd;
 }
 
+.footer .navbar {
+	margin-top: 2rem;
+}
+
 .footer .navbar li {
 	margin-left: 2rem;
 	margin-right: 2rem;
@@ -41,4 +45,88 @@ body {
 
 .footer .nav-link.active {
 	color: blue!important;
+}
+
+.content {
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	padding-top: 1.5rem;
+	padding-bottom: 1rem;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+/* unvisited link */
+.content a:link {
+	color: blue;
+	text-decoration: none;
+}
+
+/* visited link */
+.content a:visited {
+	color: blue;
+	text-decoration: none;
+}
+
+/* mouse over link */
+.content a:hover {
+	color: black;
+	text-decoration: none;
+}
+/* selected link */
+.content a:active {
+    color: black;
+}
+
+.subscribe-content p {
+	margin-bottom: 0.5rem;
+}
+
+.subscribe-feed {
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+
+.btn {
+	width: 100%;
+	border-radius: 0;
+}
+
+.btn-primary {
+	color: white!important;
+	background-color: blue;
+}
+
+.btn-primary:hover {
+	color: white!important;
+	background-color: black;
+}
+
+.btn-primary:active {
+	color: white!important;
+	background-color: black;
+}
+
+.form-control {
+	border-radius: 0;
+}
+
+/* Responsive */
+@media (max-width: 575px){
+	.content{
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+	.header .navbar {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+	.footer .navbar {
+		margin-top: 1rem;
+	}
+	.footer .navbar li {
+		margin-left: 1rem;
+		margin-right: 1rem;
+	}
 }

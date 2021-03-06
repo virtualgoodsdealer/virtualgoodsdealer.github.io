@@ -1,7 +1,5 @@
 ---
 layout: subscribe
-title: subscribe
+title: Subscribe
 permalink: /subscribe
 ---
-
-Subscribe to our email mailing list to receive updates on new posts, exhibits, products, and more!
