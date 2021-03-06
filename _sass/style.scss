@@ -1,3 +1,44 @@
+@import "rfs.scss";
+
 body {
 	font-family: 'Work Sans', sans-serif;
+	background-color: #bdbdbd;
+}
+
+#header-logo {
+	@include rfs(6rem, width);
+}
+
+.header .navbar {
+	margin-top: 3rem;
+	margin-bottom: 2rem;
+	background: #bdbdbd;
+}
+
+.footer .navbar li {
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
+
+/* unvisited link */
+.footer a:link {
+	color: black!important;
+}
+
+/* visited link */
+.footer a:visited {
+	color: black;
+}
+
+/* mouse over link */
+.footer a:hover {
+	color: blue;
+}
+/* selected link */
+.footer a:active {
+    color: blue;
+}
+
+.footer .nav-link.active {
+	color: blue!important;
 }
