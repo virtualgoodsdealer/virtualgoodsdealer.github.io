@@ -1,8 +1,12 @@
 @import "rfs.scss";
 
 body {
-	font-family: 'Work Sans', sans-serif;
+	font-family: Arial, sans-serif;
 	background-color: #bdbdbd;
+}
+
+p {
+	font-family: 'Work Sans', sans-serif;
 }
 
 #header-logo {
@@ -142,6 +146,7 @@ body {
 .home-button i {
 	font-size: 5rem;
 }
+
 
 /* Responsive */
 @media (max-width: 575px){
