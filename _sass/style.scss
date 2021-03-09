@@ -51,14 +51,27 @@ p {
 	color: blue!important;
 }
 
+.content-top {
+	background-color: white;
+	border-style: solid;
+	border-width: 1px;
+	border-bottom: none;
+}
+
+.content-title {
+	padding: 0.3rem;
+}
+
 .content {
 	background-color: white;
 	border-style: solid;
 	border-width: 1px;
-	padding-top: 1.5rem;
+	padding-top: 1rem;
 	padding-bottom: 1rem;
 	padding-left: 2rem;
 	padding-right: 2rem;
+	@include rfs(40rem, min-height);
+	overflow: hidden;
 }
 
 /* unvisited link */
@@ -117,8 +130,7 @@ p {
 }
 
 .home-button {
-	padding-top: 3rem;
-	padding-bottom: 3rem;
+	position: absolute;
 }
 
 /* unvisited link */
@@ -164,9 +176,5 @@ p {
 	.footer .navbar li {
 		margin-left: 1rem;
 		margin-right: 1rem;
-	}
-
-	.home-button-pages {
-		margin-bottom: 1rem;
 	}
 }
