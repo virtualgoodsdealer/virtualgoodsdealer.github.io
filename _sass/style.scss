@@ -129,9 +129,6 @@ p {
 	border-radius: 0;
 }
 
-.home-button {
-	position: absolute;
-}
 
 /* unvisited link */
 .home-button a:link {
@@ -156,9 +153,19 @@ p {
 }
 
 .home-button i {
-	font-size: 5rem;
+	@include rfs(10rem, font-size);
 }
 
+#pages {
+	@include rfs(3rem, margin-top);
+	margin-left: 2rem;
+}
+
+#products {
+	@include rfs(15rem, margin-top);
+	margin-right: 2rem;
+	margin-bottom: 2rem;
+}
 
 /* Responsive */
 @media (max-width: 575px){
@@ -176,5 +183,18 @@ p {
 	.footer .navbar li {
 		margin-left: 1rem;
 		margin-right: 1rem;
+	}
+	#pages {
+		margin-top: 1rem;
+		margin-left: 2rem;
+	}
+
+	#products {
+		margin-top: 8rem;
+		margin-right: 2rem;
+		margin-bottom: 2rem;
+	}
+	.home-button i {
+		font-size: 5rem;
 	}
 }
