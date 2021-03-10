@@ -5,10 +5,6 @@ body {
 	background-color: #bdbdbd;
 }
 
-p {
-	font-family: 'Work Sans', sans-serif;
-}
-
 #header-logo {
 	@include rfs(8rem, width);
 }
@@ -26,6 +22,8 @@ p {
 .footer .navbar li {
 	margin-left: 2rem;
 	margin-right: 2rem;
+		@include font-size(1.2rem);
+	font-weight: bold;
 }
 
 /* unvisited link */
@@ -53,19 +51,39 @@ p {
 
 .content-top {
 	background-color: white;
-	border-style: solid;
-	border-width: 1px;
+    border-right: 5px solid;
+    border-top: 2px solid;
+    border-left: 2px solid;
 	border-bottom: none;
 }
 
 .content-title {
-	padding: 0.3rem;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	@include font-size(1.2rem);
+	font-weight: bold;
+}
+
+.content-title-lines {
+	flex-grow: 1;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+}
+
+.content-title-lines hr {
+	margin: 2px;
+	opacity: 1;
+	border: 1px solid;
 }
 
 .content {
 	background-color: white;
-	border-style: solid;
-	border-width: 1px;
+	border-bottom: 5px solid;
+    border-right: 5px solid;
+    border-top: 2px solid;
+    border-left: 2px solid;
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 	padding-left: 2rem;
@@ -107,26 +125,27 @@ p {
 
 .btn {
 	width: 100%;
-	border-radius: 0;
+	border: 2px solid;
 }
 
-.btn-primary {
-	color: white!important;
-	background-color: blue;
+.btn-outline-primary {
+	color: black!important;
+	border-color: black;
 }
 
-.btn-primary:hover {
-	color: white!important;
+.btn-outline-primary:hover {
 	background-color: black;
+	color: white!important;
+	border-color: black;
 }
 
-.btn-primary:active {
-	color: white!important;
-	background-color: black;
+.btn-outline-primary:active {
+	color: blue;
 }
 
 .form-control {
 	border-radius: 0;
+	border: 2px solid;
 }
 
 
@@ -152,8 +171,9 @@ p {
     color: black;
 }
 
-.home-button i {
-	@include rfs(10rem, font-size);
+.model-container {
+	@include rfs(10rem, height);
+	@include rfs(10rem, width);
 }
 
 #pages {
@@ -194,7 +214,8 @@ p {
 		margin-right: 2rem;
 		margin-bottom: 2rem;
 	}
-	.home-button i {
-		font-size: 5rem;
+	.model-container {
+		width: 5rem;
+		height: 5rem;
 	}
 }
