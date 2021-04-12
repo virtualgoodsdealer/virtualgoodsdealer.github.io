@@ -9,6 +9,6 @@ Virtualgoodsdealer is a collaborative virtual space and e-commerce portal. Worki
 [pages.virtualgoodsdealer.com](https://pages.virtualgoodsdealer.com/) focuses on publishing non-physical art and showcasing creators.   
 [products.virtualgoodsdealer.com](https://products.virtualgoodsdealer.com/) is an online store stocked with virtualgoodsdealer originals and works by our creator partners.
 
-Virtualgoodsdealer is by [ada.wrong](/creatordirectory/adawrong), [cindie xin](/creatordirectory/cindiexin), and [saqmemes](/creatordirectory/saqmemes).
+Virtualgoodsdealer is by [ada.wrong](https://pages.virtualgoodsdealer.com/creatordirectory/adawrong){:target="_blank"}, [cindie xin](https://pages.virtualgoodsdealer.com/creatordirectory/cindiexin){:target="_blank"}, and [saqmemes](https://pages.virtualgoodsdealer.com/creatordirectory/saqmemes){:target="_blank"}.
 
 Contact us at [virtualgoodsofficial@gmail.com](mailto:virtualgoodsofficial@gmail.com).
