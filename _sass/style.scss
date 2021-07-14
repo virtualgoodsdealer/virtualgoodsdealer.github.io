@@ -173,17 +173,16 @@ body {
 
 .model-container {
 	@include rfs(10rem, height);
-	@include rfs(10rem, width);
+	width: 100%;
+	//@include rfs(20rem, width);
 }
 
 #pages {
 	@include rfs(3rem, margin-top);
-	margin-left: 2rem;
 }
 
 #products {
 	@include rfs(15rem, margin-top);
-	margin-right: 2rem;
 	margin-bottom: 2rem;
 }
 
@@ -206,16 +205,14 @@ body {
 	}
 	#pages {
 		margin-top: 1rem;
-		margin-left: 2rem;
 	}
 
 	#products {
 		margin-top: 8rem;
-		margin-right: 2rem;
 		margin-bottom: 2rem;
 	}
 	.model-container {
-		width: 5rem;
+		//width: 10rem;
 		height: 5rem;
 	}
 }
