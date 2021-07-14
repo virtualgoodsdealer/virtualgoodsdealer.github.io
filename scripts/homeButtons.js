@@ -1,11 +1,16 @@
 import * as THREE from '../scripts/three/build/three.module.js';
 import { GLTFLoader } from '../scripts/three/examples/jsm/loaders/GLTFLoader.js';
 
+import { EffectComposer } from '../scripts/three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from '../scripts/three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from '../scripts/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 function createModel(element, site) {
  	const scene = new THREE.Scene();
  	const camera = new THREE.PerspectiveCamera(10, element.clientWidth / element.clientHeight, 1, 1000 );
 
  	const renderer = new THREE.WebGLRenderer();
+    const composer = new EffectComposer( renderer );
 
  	renderer.setSize( element.clientWidth, element.clientHeight );
  	renderer.setClearColor(new THREE.Color('white'));
@@ -30,11 +35,28 @@ function createModel(element, site) {
 
         gltf.scene.traverse((o) => {
           if (!o.isMesh) return;
-          o.material.roughness = 1;
+          o.material.roughness = 0.7;
           o.material.metalness = 0;
         });
 
         scene.add( gltf.scene );
+
+
+        var meshToRotate;
+        if(site == 'pages'){
+            gltf.scene.position.z=-0.5;
+            gltf.scene.position.y=0.05;
+            gltf.scene.position.x=-0.02;
+            gltf.scene.rotation.x=0.5;
+
+            var pivot = new THREE.Group();
+            scene.add(pivot);
+            pivot.add(gltf.scene);
+            meshToRotate = pivot;
+        }
+        else{
+            meshToRotate = gltf.scene;
+        }
 
         // center model
         var mroot = gltf.scene;
@@ -50,19 +72,26 @@ function createModel(element, site) {
         bbox.getSize(size);
         //Reposition to 0,halfY,0
         mroot.position.copy(cent).multiplyScalar(-1);
-        //mroot.position.y-= (size.y * 0.5);
+        //mroot.position.y+= (size.y * 0.25);
         gltf.scene.position.z = 0;
 
-        if(site == 'pages'){
-            gltf.scene.position.z=1;
-        }
+        const alight = new THREE.AmbientLight( 0xffffff ); // soft white light
+        scene.add( alight );
 
-        const light = new THREE.AmbientLight( 0xffffff ); // soft white light
-        scene.add( light );
-
-        const plight = new THREE.PointLight( 0xffffff, 1, 100 );
-        plight.position.set( 0, 0, 10 );
+        const plight = new THREE.PointLight( 0xffffff, 0.5, 50 );
+        plight.position.set( 0, 0, 5 );
+        plight.rotateX(-80*Math.PI/180);
+        plight.rotateY(40*Math.PI/180);
         scene.add( plight );
+
+        const color = 0xFFFFFF;
+        const intensity = 1;
+        const light = new THREE.DirectionalLight(color, intensity);
+        light.position.set(5, 10, 5);
+        light.target.position.set(-5, 0, -5);
+        scene.add(light);
+        scene.add(light.target);
+
         // const geometry = new THREE.BoxGeometry();
         // const material = new THREE.MeshBasicMaterial( color );
         // const cube = new THREE.Mesh( geometry, material );
@@ -70,29 +99,50 @@ function createModel(element, site) {
         // cube.rotation.y = 1;
         // cube.rotation.x = 0.8;
 
+        //Create a plane that receives shadows (but does not cast them)
+        const textureLoader = new THREE.TextureLoader();
+        const shadowTexture = textureLoader.load('../assets/roundshadow.png');
+        
+        const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTexture, transparent: true, depthWrite: false});
+        const shadowGeo = new THREE.PlaneGeometry( 1, 1 );
+        const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
+
+        shadowMesh.material.opacity = 0.8;
+
+        shadowMesh.rotateX(-80*Math.PI/180);
+        shadowMesh.position.set(0,-0.38,0);
+        shadowMesh.scale.set(0.8,0.8,0.8);
+        scene.add( shadowMesh );
+
         camera.position.z = 5;
-        renderer.render( scene, camera );
+        camera.position.y = -0.05;
+
+        const renderPass = new RenderPass( scene, camera );
+        composer.addPass( renderPass );
+
+        const unrealBloomPass = new UnrealBloomPass();
+        composer.addPass( unrealBloomPass );
+        composer.render();
 
         var animation;
         var yincrease = true;
         const animate = function () {
             animation = requestAnimationFrame( animate );
             if (yincrease){
-                gltf.scene.rotation.y += 0.0005;
+                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), 0.0005);
             }
             else{
-                gltf.scene.rotation.y -= 0.0005;
+                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize() ,-0.0005);
             }
 
-            if(gltf.scene.rotation.y % 360 >= 40*Math.PI/180){
+            if(meshToRotate.rotation.y % 360 >= 40*Math.PI/180){
                 yincrease = false;
             }
-            else if (gltf.scene.rotation.y % 360 <= -40*Math.PI/180){
+            else if (meshToRotate.rotation.y % 360 <= -40*Math.PI/180){
                 yincrease = true;
             }
            
-            console.log(gltf.scene.rotation.y);
-            renderer.render( scene, camera );
+            composer.render();
         };
 
         var animationHover;
@@ -101,13 +151,13 @@ function createModel(element, site) {
             animationHover = requestAnimationFrame( hoverAnimate );
 
             if(yincrease){
-               gltf.scene.rotation.y += 0.05; 
+               meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), 0.05); 
             }
             else{
-                gltf.scene.rotation.y -= 0.05; 
+               meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), -0.05);
             }
 
-            renderer.render( scene, camera );
+            composer.render();
         };
 
         const stopHoverAnimate = function () {
