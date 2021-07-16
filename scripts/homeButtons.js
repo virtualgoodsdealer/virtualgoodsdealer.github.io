@@ -21,13 +21,12 @@ function createModel(element, site) {
     composer.setSize(renderer.domElement.width, renderer.domElement.height);
 
     const loader = new GLTFLoader();
-
     var file;
     if(site == 'pages'){
-        file = '../assets/VGD_3D Commission_OPENBOOK_HR_06_25.glb';
+        file = '../assets/book_optimized.glb';
     }
     else if(site == 'products'){
-        file = '../assets/VGD_3D Commission_SHIPPINGBOX_HR_06_25.glb';
+        file = '../assets/box_optimized.glb';
     }
 
     loader.load(file, function ( gltf ) {
