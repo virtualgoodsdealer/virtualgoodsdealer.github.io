@@ -88,7 +88,7 @@ body {
 	padding-bottom: 1rem;
 	padding-left: 2rem;
 	padding-right: 2rem;
-	@include rfs(40rem, min-height);
+	@include rfs(30rem, min-height);
 	overflow: hidden;
 }
 
@@ -178,12 +178,16 @@ body {
 }
 
 #pages {
-	@include rfs(3rem, margin-top);
+	@include rfs(1rem, margin-top);
 }
 
 #products {
-	@include rfs(15rem, margin-top);
-	margin-bottom: 2rem;
+	@include rfs(12rem, margin-top);
+	margin-bottom: 1rem;
+}
+
+.container{
+	@include rfs(50rem, width);
 }
 
 /* Responsive */
@@ -208,11 +212,15 @@ body {
 	}
 
 	#products {
-		margin-top: 8rem;
-		margin-bottom: 2rem;
+		margin-top: 7rem;
+		margin-bottom: 1rem;
 	}
 	.model-container {
 		//width: 10rem;
 		height: 5rem;
+	}
+
+	.container{
+		width: 100%;
 	}
 }

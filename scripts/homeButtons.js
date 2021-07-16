@@ -4,17 +4,21 @@ import { GLTFLoader } from '../scripts/three/examples/jsm/loaders/GLTFLoader.js'
 import { EffectComposer } from '../scripts/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from '../scripts/three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from '../scripts/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { HalftonePass } from '../scripts/three/examples/jsm/postprocessing/HalftonePass.js';
+
 
 function createModel(element, site) {
  	const scene = new THREE.Scene();
  	const camera = new THREE.PerspectiveCamera(10, element.clientWidth / element.clientHeight, 1, 1000 );
 
  	const renderer = new THREE.WebGLRenderer();
-    const composer = new EffectComposer( renderer );
-
+    renderer.setClearColor(new THREE.Color('white'));
  	renderer.setSize( element.clientWidth, element.clientHeight );
- 	renderer.setClearColor(new THREE.Color('white'));
+
  	element.appendChild( renderer.domElement );
+    
+    const composer = new EffectComposer( renderer );
+    composer.setSize(renderer.domElement.width, renderer.domElement.height);
 
     const loader = new GLTFLoader();
 
@@ -35,7 +39,7 @@ function createModel(element, site) {
 
         gltf.scene.traverse((o) => {
           if (!o.isMesh) return;
-          o.material.roughness = 0.7;
+          o.material.roughness = 1;
           o.material.metalness = 0;
         });
 
@@ -76,16 +80,17 @@ function createModel(element, site) {
         gltf.scene.position.z = 0;
 
         const alight = new THREE.AmbientLight( 0xffffff ); // soft white light
+        alight.intensity = 1;
         scene.add( alight );
 
-        const plight = new THREE.PointLight( 0xffffff, 0.5, 50 );
-        plight.position.set( 0, 0, 5 );
-        plight.rotateX(-80*Math.PI/180);
-        plight.rotateY(40*Math.PI/180);
-        scene.add( plight );
+        // const plight = new THREE.PointLight( 0xffffff, 0.5, 50 );
+        // plight.position.set( 0, 0, 5 );
+        // plight.rotateX(-80*Math.PI/180);
+        // plight.rotateY(40*Math.PI/180);
+        // scene.add( plight );
 
         const color = 0xFFFFFF;
-        const intensity = 1;
+        const intensity = 0.8;
         const light = new THREE.DirectionalLight(color, intensity);
         light.position.set(5, 10, 5);
         light.target.position.set(-5, 0, -5);
@@ -121,7 +126,23 @@ function createModel(element, site) {
         composer.addPass( renderPass );
 
         const unrealBloomPass = new UnrealBloomPass();
+        unrealBloomPass.exposure = 2;
+        unrealBloomPass.threshold = 0;
+        unrealBloomPass.strength = 0.2;
+        unrealBloomPass.radius = 0.05;
         composer.addPass( unrealBloomPass );
+
+        const halftonePass = new HalftonePass();
+        halftonePass.uniforms['shape'].value = 1;
+        halftonePass.uniforms['blendingMode'].value = 2;
+        halftonePass.uniforms['radius'].value = 3;
+        halftonePass.uniforms['rotateR'].value = 15;
+        halftonePass.uniforms['rotateG'].value = 45;
+        halftonePass.uniforms['rotateB'].value = 30;
+        halftonePass.uniforms['scatter'].value = 0;
+        halftonePass.uniforms['blending'].value = 0.9;
+        composer.addPass( halftonePass );
+
         composer.render();
 
         var animation;
@@ -141,7 +162,6 @@ function createModel(element, site) {
             else if (meshToRotate.rotation.y % 360 <= -40*Math.PI/180){
                 yincrease = true;
             }
-           
             composer.render();
         };
 
@@ -156,7 +176,6 @@ function createModel(element, site) {
             else{
                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), -0.05);
             }
-
             composer.render();
         };
 
