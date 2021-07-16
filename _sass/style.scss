@@ -15,15 +15,23 @@ body {
 	background: #bdbdbd;
 }
 
+.footer {
+	margin-bottom: 2rem;
+}
+
 .footer .navbar {
-	margin-top: 2rem;
+	margin-top: 3rem;
 }
 
 .footer .navbar li {
-	margin-left: 2rem;
-	margin-right: 2rem;
-		@include font-size(1.2rem);
-	font-weight: bold;
+	margin-left: 3rem;
+	margin-right: 3rem;
+	@include font-size(1.2rem);
+	line-height: 1rem;
+}
+
+.model-name {
+	@include font-size(1.2rem);
 }
 
 /* unvisited link */
@@ -84,10 +92,10 @@ body {
     border-right: 5px solid;
     border-top: 2px solid;
     border-left: 2px solid;
-	padding-top: 1rem;
+	padding-top: 3rem;
 	padding-bottom: 1rem;
-	padding-left: 2rem;
-	padding-right: 2rem;
+	padding-left: 3rem;
+	padding-right: 3rem;
 	@include rfs(30rem, min-height);
 	overflow: hidden;
 }
@@ -186,8 +194,28 @@ body {
 	margin-bottom: 1rem;
 }
 
-.container{
+#loading-screen {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #bdbdbd;
+	opacity: 1;
+ 	transition: 1s opacity;
+}
+
+#loading-screen.fade-out {
+    opacity: 0;
+}
+
+.container-md{
 	@include rfs(50rem, width);
+}
+
+.row {
+	--bs-gutter-x: 0;
 }
 
 /* Responsive */
@@ -200,13 +228,7 @@ body {
 		margin-top: 1rem;
 		margin-bottom: 1rem;
 	}
-	.footer .navbar {
-		margin-top: 1rem;
-	}
-	.footer .navbar li {
-		margin-left: 1rem;
-		margin-right: 1rem;
-	}
+
 	#pages {
 		margin-top: 1rem;
 	}
@@ -220,7 +242,19 @@ body {
 		height: 5rem;
 	}
 
-	.container{
+}
+
+@media (max-width: 768px){
+	.container-md{
 		width: 100%;
+	}
+	.footer .navbar {
+		margin-top: 1rem;
+	}
+	.footer .navbar li {
+		margin-left: 2rem;
+		margin-right: 2rem;
+		line-height: 2rem;
+		margin-bottom: 1rem;
 	}
 }

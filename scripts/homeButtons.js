@@ -6,8 +6,22 @@ import { RenderPass } from '../scripts/three/examples/jsm/postprocessing/RenderP
 import { UnrealBloomPass } from '../scripts/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { HalftonePass } from '../scripts/three/examples/jsm/postprocessing/HalftonePass.js';
 
+import { MeshoptDecoder } from '../scripts/three/examples/jsm/libs/meshopt_decoder.module.js';
+
+var modelsLoaded = 0;
 
 function createModel(element, site) {
+    const manager = new THREE.LoadingManager();
+    manager.onLoad = function ( ) {
+        modelsLoaded += 1;
+        if(modelsLoaded == 2){
+            const loadingScreen = document.getElementById( 'loading-screen' );
+            loadingScreen.classList.add( 'fade-out' );
+            loadingScreen.addEventListener( 'transitionend', (e) => {
+                e.target.remove();
+            } );
+        }
+    };
  	const scene = new THREE.Scene();
  	const camera = new THREE.PerspectiveCamera(10, element.clientWidth / element.clientHeight, 1, 1000 );
 
@@ -20,18 +34,17 @@ function createModel(element, site) {
     const composer = new EffectComposer( renderer );
     composer.setSize(renderer.domElement.width, renderer.domElement.height);
 
-    const loader = new GLTFLoader();
+    const loader = new GLTFLoader(manager);
     var file;
     if(site == 'pages'){
-        file = '../assets/book_optimized.glb';
+        file = '../assets/book_optimized_cc.glb';
     }
     else if(site == 'products'){
-        file = '../assets/box_optimized.glb';
+        file = '../assets/box_optimized_cc.glb';
     }
 
+    loader.setMeshoptDecoder(MeshoptDecoder);
     loader.load(file, function ( gltf ) {
-        //gltf.scene.rotation.y = 1;
-        //gltf.scene.rotation.x = 0.8;
 
         // set material
         var material = new THREE.MeshStandardMaterial();
@@ -82,12 +95,6 @@ function createModel(element, site) {
         alight.intensity = 1;
         scene.add( alight );
 
-        // const plight = new THREE.PointLight( 0xffffff, 0.5, 50 );
-        // plight.position.set( 0, 0, 5 );
-        // plight.rotateX(-80*Math.PI/180);
-        // plight.rotateY(40*Math.PI/180);
-        // scene.add( plight );
-
         const color = 0xFFFFFF;
         const intensity = 0.8;
         const light = new THREE.DirectionalLight(color, intensity);
@@ -95,13 +102,6 @@ function createModel(element, site) {
         light.target.position.set(-5, 0, -5);
         scene.add(light);
         scene.add(light.target);
-
-        // const geometry = new THREE.BoxGeometry();
-        // const material = new THREE.MeshBasicMaterial( color );
-        // const cube = new THREE.Mesh( geometry, material );
-        // scene.add( cube );
-        // cube.rotation.y = 1;
-        // cube.rotation.x = 0.8;
 
         //Create a plane that receives shadows (but does not cast them)
         const textureLoader = new THREE.TextureLoader();
@@ -146,6 +146,8 @@ function createModel(element, site) {
 
         var animation;
         var yincrease = true;
+        var animationHover;
+
         const animate = function () {
             animation = requestAnimationFrame( animate );
             if (yincrease){
@@ -164,7 +166,6 @@ function createModel(element, site) {
             composer.render();
         };
 
-        var animationHover;
         const hoverAnimate = function () {
             cancelAnimationFrame( animation );
             animationHover = requestAnimationFrame( hoverAnimate );
@@ -194,37 +195,10 @@ function createModel(element, site) {
     } );
 }
 
+
+
+
 var modelContainerPages = document.querySelector("#pages .model-container");
 var modelContainerProducts = document.querySelector("#products .model-container");
 createModel(modelContainerPages, 'pages');
 createModel(modelContainerProducts, 'products');
-
-//  	const scene = new THREE.Scene();
-//  	const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
-//  	const renderer = new THREE.WebGLRenderer();
-
-//  	renderer.setClearColor(new THREE.Color('white'));
-//  	document.body.appendChild( renderer.domElement );
-//  	camera.position.z = 5;
-
-// const loader = new GLTFLoader();
-
-// loader.load( '../assets/VGD_3D Commission_OPENBOOK_HR_06_25.glb', function ( gltf ) {
-
-// 	scene.add( gltf.scene );
-
-// }, undefined, function ( error ) {
-
-// 	console.error( error );
-
-// } );
-
-// const light = new THREE.AmbientLight( 0xffffff ); // soft white light
-// scene.add( light );
-
-// function animate() {
-// 	requestAnimationFrame( animate );
-// 	renderer.render( scene, camera );
-// }
-// animate();
