@@ -151,10 +151,10 @@ function createModel(element, site) {
         const animate = function () {
             animation = requestAnimationFrame( animate );
             if (yincrease){
-                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), 0.0005);
+                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize(), 0.0025);
             }
             else{
-                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize() ,-0.0005);
+                meshToRotate.rotateOnWorldAxis(new THREE.Vector3(0,1,0).normalize() ,-0.0025);
             }
 
             if(meshToRotate.rotation.y % 360 >= 40*Math.PI/180){
